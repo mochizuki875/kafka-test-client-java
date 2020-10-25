@@ -12,13 +12,10 @@ public class kafkaConsume {
 	public static void main(String[] args) {
 
 	     Properties props = new Properties();
-	     // kafka brokerを指定
+	     // kafka brokerを引数から取得
 	     props.setProperty("bootstrap.servers", args[0]);
-//	     props.setProperty("bootstrap.servers", "kafka.cluster.local:31090");
-	     // consumeグループを指定
-//	     props.setProperty("group.id", groupId);
+	     // consumeグループIDを引数から取得
 	     props.setProperty("group.id", args[1]);
-
 	     props.setProperty("enable.auto.commit", "true");
 	     props.setProperty("auto.commit.interval.ms", "1000");
 	     props.setProperty("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
@@ -26,12 +23,10 @@ public class kafkaConsume {
 
 	     KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
 
-	     // consumeするtopicを指定
-//	     consumer.subscribe(Arrays.asList(topicName));
+	     // consumeするtopicを引数から取得
 	     consumer.subscribe(Arrays.asList(args[2]));
 
-
-	     System.out.println("★★Consume開始★★");
+	     System.out.println("★★Start Consume★★");
 	     while (true) {
 	    	 // ポーリングを開始
 	    	 // トピックからメッセージを取得する際のタイムアウト値を指定（ms）
